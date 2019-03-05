@@ -123,12 +123,12 @@ export interface AxiosInterceptorManager<T> {
 }
 
 export interface AxiosInstance<R = any, D = any, P = any> {
-  (config: AxiosRequestConfig<D, P, R>): AxiosPromise<R>;
+  (config: AxiosRequestConfig<R, D, P>): AxiosPromise<R>;
   (url: string, config?: AxiosRequestConfig): AxiosPromise;
   defaults: AxiosRequestConfig;
   interceptors: {
-    request: AxiosInterceptorManager<AxiosRequestConfig>;
-    response: AxiosInterceptorManager<AxiosResponse>;
+    request: AxiosInterceptorManager<AxiosRequestConfig<R, D, P>>;
+    response: AxiosInterceptorManager<AxiosResponse<R>>;
   };
   request<r = R, d = D, p = P> (config: AxiosRequestConfig<r, d, p>): AxiosPromise<r>;
   get<r = R, d = D, p = P>(url: string, config?: AxiosRequestConfig<r, d, p>): AxiosPromise<r>;
